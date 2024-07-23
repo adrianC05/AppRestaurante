@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     color: Colors.white,
                   ),
                   SizedBox(height: 20),
-                  
+
                   // Formulario de login
                   Form(
                     key: _formKey,
@@ -92,7 +92,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             prefixIcon: Icon(Icons.lock, color: Colors.white),
                             suffixIcon: IconButton(
                               icon: Icon(
-                                _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                                _obscurePassword
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
                                 color: Colors.white,
                               ),
                               onPressed: () {
@@ -117,9 +119,12 @@ class _LoginScreenState extends State<LoginScreen> {
                           onPressed: _login,
                           child: Text('Iniciar sesión'),
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                            minimumSize: MaterialStateProperty.all<Size>(Size(double.infinity, 36)), // Ancho completo
+                            backgroundColor:
+                                MaterialStateProperty.all<Color>(Colors.white),
+                            foregroundColor:
+                                MaterialStateProperty.all<Color>(Colors.blue),
+                            minimumSize: MaterialStateProperty.all<Size>(
+                                Size(double.infinity, 36)), // Ancho completo
                           ),
                         ),
                         TextButton(
