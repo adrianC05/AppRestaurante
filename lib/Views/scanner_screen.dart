@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/Views/menu.dart';
 import 'package:proyecto/Views/login.dart'; // Asegúrate de importar la vista de inicio de sesión
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../Models/table_model.dart';
 import '../Services/qr_service.dart';
 
 class ScannerScreen extends StatefulWidget {
