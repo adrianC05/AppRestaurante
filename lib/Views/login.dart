@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:proyecto/Views/invoices.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -24,6 +25,10 @@ class _LoginScreenState extends State<LoginScreen> {
           SnackBar(content: Text('Login exitoso')),
         );
         // Aquí podrías navegar a otra pantalla si lo deseas
+        Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => InvoicesPage()),
+      );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Credenciales incorrectas')),
