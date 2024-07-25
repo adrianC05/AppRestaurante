@@ -1,7 +1,7 @@
 // lib/Views/scanner_screen.dart
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/menu.dart';
-import 'package:proyecto/Views/login.dart'; // Asegúrate de importar la vista de inicio de sesión
+import 'package:proyecto/Views/login.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../Services/qr_service.dart';
 
@@ -31,14 +31,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
         actions: [
           Padding(
             padding: EdgeInsets.only(right: 16.0),
-            child: ElevatedButton(
+            child: IconButton(
+              icon: Icon(Icons.login, size: 30),
               onPressed: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => LoginScreen()),
                 );
               },
-              child: Icon(Icons.login, size: 30),
             ),
           ),
         ],
@@ -46,7 +46,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
       body: Column(
         children: [
           Expanded(
-            flex: 5,
+            flex: 7,
             child: QRView(
               key: qrKey,
               onQRViewCreated: (controller) {
@@ -60,7 +60,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
                 });
               },
               overlay: QrScannerOverlayShape(
-                borderColor: Colors.white,
+                borderColor: Colors.green,
                 borderRadius: 10,
                 borderLength: 30,
                 borderWidth: 10,
@@ -74,9 +74,15 @@ class _ScannerScreenState extends State<ScannerScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Icon(
+                    Icons.qr_code_scanner,
+                    size: 50,
+                    color: Colors.green,
+                  ),
+                  SizedBox(height: 10),
                   Text(
-                    'Escanear',
-                    style: TextStyle(fontSize: 24),
+                    'Apunta la cámara al código QR',
+                    style: TextStyle(fontSize: 20),
                   ),
                 ],
               ),
