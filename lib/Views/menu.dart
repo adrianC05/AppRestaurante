@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Services/plato_service.dart';
+import 'package:proyecto/Views/carrito.dart';
+import 'package:proyecto/Views/Componentes/appBarComun.dart';
 
 class Menu extends StatelessWidget {
   final String tableNumber;
@@ -11,18 +13,7 @@ class Menu extends StatelessWidget {
     final dishes = PlatoService().getPlatos();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Restaurante'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Center(
-              child: Text('Nro. Mesa $tableNumber',
-                  style: TextStyle(fontSize: 18)),
-            ),
-          ),
-        ],
-      ),
+      appBar: AppBarComun(title: 'Restaurante', tableNumber: tableNumber),
       body: Column(
         children: [
           Padding(
@@ -66,13 +57,6 @@ class Menu extends StatelessWidget {
                           style: TextStyle(fontSize: 16, color: Colors.green),
                         ),
                       ),
-                      /* Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          dish.description,
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ), */
                     ],
                   ),
                 );
@@ -81,25 +65,22 @@ class Menu extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.restaurant),
-            label: 'Menu',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Pedido',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Factura',
-          ),
-        ],
+      bottomNavigationBar: CommonBottomNavigationBar(
         currentIndex: 0,
-        selectedItemColor: Colors.green,
         onTap: (index) {
-          // Aquí puedes manejar la navegación entre las diferentes secciones
+          if (index == 1) {
+            // Navegar a la página del carrito
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Carrito(tableNumber: tableNumber),
+              ),
+            );
+          } else if (index == 2) {
+            // Navegar a la página de facturas (aquí debes implementar la lógica correspondiente)
+          } else {
+            // Permanece en la página actual (menú)
+          }
         },
       ),
     );
