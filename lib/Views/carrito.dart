@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/Componentes/appBarComun.dart';
 import 'package:proyecto/Views/menu.dart';
+import 'package:proyecto/Views/factura.dart';
 
 class Carrito extends StatelessWidget {
   final String tableNumber;
@@ -17,6 +18,7 @@ class Carrito extends StatelessWidget {
     ItemCompra(itemName: 'Platillo 8', price: '8.99'),
   ];
 
+  
   double calcularTotal() {
     double total = 0;
     for (var item in items) {
@@ -93,7 +95,12 @@ class Carrito extends StatelessWidget {
               ),
             );
           } else if (index == 2) {
-            // Navegar a la página de facturas (aquí debes implementar la lógica correspondiente)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Factura(tableNumber: tableNumber),
+              ),
+            );// Navegar a la página de facturas (aquí debes implementar la lógica correspondiente)
           }
         },
       ),
