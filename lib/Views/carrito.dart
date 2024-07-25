@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/Componentes/appBarComun.dart';
 import 'package:proyecto/Views/menu.dart';
+import 'package:proyecto/Services/carrito_service.dart';
+import 'package:proyecto/Views/factura.dart';
+import 'package:proyecto/Models/item_compra.dart';
 
 class Carrito extends StatelessWidget {
   final String tableNumber;
