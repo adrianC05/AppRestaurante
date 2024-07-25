@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/invoices_details.dart';
+import 'package:proyecto/Views/invoices_details.dart'; // Asegúrate de tener la importación correcta
 import 'package:proyecto/Views/login.dart';
 
 class InvoicesPage extends StatelessWidget {
@@ -8,7 +8,7 @@ class InvoicesPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Nombre del Restaurante', style: TextStyle(fontSize: 20)),
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Color.fromARGB(148, 0, 54, 90),
         actions: [
           IconButton(
             icon: Icon(Icons.logout, size: 30),
@@ -26,7 +26,7 @@ class InvoicesPage extends StatelessWidget {
           // Imagen de fondo
           Positioned.fill(
             child: Image.asset(
-              'assets/images/restaurant_bg.jpg', // Ruta de la imagen de fondo
+              'assets/images/restaurant.jpg', // Ruta de la imagen de fondo
               fit: BoxFit.cover,
             ),
           ),
@@ -35,11 +35,17 @@ class InvoicesPage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: ListView(
               children: <Widget>[
-                InvoiceCard(invoiceNumber: '01', amount: '9.99'),
-                InvoiceCard(invoiceNumber: '02', amount: '19.99'),
-                InvoiceCard(invoiceNumber: '03', amount: '29.99'),
-                InvoiceCard(invoiceNumber: '04', amount: '39.99'),
-                InvoiceCard(invoiceNumber: '05', amount: '49.99'),
+                InvoiceCard(invoiceNumber: '01', amount: '9.99', products: [
+                  //{'name': 'Producto 1', 'imagePath': 'assets/images/item1.jpg', 'price': '9.99'},
+                  {'name': 'Producto 2', 'imagePath': 'assets/images/item2.jpg', 'price': '19.99'},
+                  {'name': 'Producto 3', 'imagePath': 'assets/images/item3.jpg', 'price': '29.99'},
+                ]),
+                InvoiceCard(invoiceNumber: '02', amount: '19.99', products: [
+                  {'name': 'Producto 3', 'imagePath': 'assets/images/item3.jpg', 'price': '29.99'},
+                  {'name': 'Producto 2', 'imagePath': 'assets/images/item2.jpg', 'price': '19.99'},
+                  {'name': 'Producto 1', 'imagePath': 'assets/images/item1.jpg', 'price': '9.99'},
+                ]),
+                // Añade más InvoiceCard según sea necesario
               ],
             ),
           ),
@@ -50,15 +56,11 @@ class InvoicesPage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
             label: 'Facturas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment),
-            label: 'Pago',
-          ),
+          )
         ],
-        backgroundColor: Colors.deepPurple,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.white70,
+        backgroundColor: Color.fromARGB(148, 0, 54, 90),
+        selectedItemColor: Color.fromARGB(255, 7, 221, 43),
+        unselectedItemColor: const Color.fromARGB(179, 255, 255, 255),
       ),
     );
   }
@@ -67,8 +69,9 @@ class InvoicesPage extends StatelessWidget {
 class InvoiceCard extends StatelessWidget {
   final String invoiceNumber;
   final String amount;
+  final List<Map<String, String>> products;
 
-  InvoiceCard({required this.invoiceNumber, required this.amount});
+  InvoiceCard({required this.invoiceNumber, required this.amount, required this.products});
 
   @override
   Widget build(BuildContext context) {
@@ -101,6 +104,7 @@ class InvoiceCard extends StatelessWidget {
                 builder: (context) => InvoiceDetailsPage(
                   invoiceNumber: invoiceNumber,
                   amount: amount,
+                  products: products,
                 ),
               ),
             );

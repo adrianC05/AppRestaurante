@@ -58,10 +58,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     // Icono de login
-                    Icon(
-                      Icons.account_circle_sharp,
+                    const Icon(
+                      Icons.account_box,
                       size: 120,
-                      color: Color.fromARGB(255, 201, 184, 160),
+                      color: Color.fromARGB(255, 255, 255, 255),
                     ),
                     SizedBox(height: 20),
 
@@ -148,10 +148,10 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Text('Iniciar sesión'),
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty.all<Color>(
-                                Colors.white,
+                                Color.fromARGB(255, 238, 195, 4),
                               ),
                               foregroundColor: MaterialStateProperty.all<Color>(
-                                Colors.blue,
+                                const Color.fromARGB(255, 12, 12, 12),
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
                                 Size(double.infinity, 48), // Ancho completo y altura ajustada
@@ -165,15 +165,6 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                           SizedBox(height: 16),
                           // Botón de Registro
-                          TextButton(
-                            onPressed: () {
-                              // Navegar a la pantalla de registro
-                            },
-                            child: Text(
-                              'No tienes una cuenta? Regístrate',
-                              style: TextStyle(color: Color.fromARGB(255, 255, 255, 255), fontSize: 16),
-                            ),
-                          ),
                         ],
                       ),
                     ),
