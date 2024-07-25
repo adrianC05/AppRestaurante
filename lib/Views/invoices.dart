@@ -21,17 +21,29 @@ class InvoicesPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: ListView(
-          children: <Widget>[
-            InvoiceCard(invoiceNumber: '01', amount: '9.99'),
-            InvoiceCard(invoiceNumber: '02', amount: '19.99'),
-            InvoiceCard(invoiceNumber: '03', amount: '29.99'),
-            InvoiceCard(invoiceNumber: '04', amount: '39.99'),
-            InvoiceCard(invoiceNumber: '05', amount: '49.99'),
-          ],
-        ),
+      body: Stack(
+        children: <Widget>[
+          // Imagen de fondo
+          Positioned.fill(
+            child: Image.asset(
+              'assets/images/restaurant_bg.jpg', // Ruta de la imagen de fondo
+              fit: BoxFit.cover,
+            ),
+          ),
+          // Contenido de la vista
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListView(
+              children: <Widget>[
+                InvoiceCard(invoiceNumber: '01', amount: '9.99'),
+                InvoiceCard(invoiceNumber: '02', amount: '19.99'),
+                InvoiceCard(invoiceNumber: '03', amount: '29.99'),
+                InvoiceCard(invoiceNumber: '04', amount: '39.99'),
+                InvoiceCard(invoiceNumber: '05', amount: '49.99'),
+              ],
+            ),
+          ),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: [
