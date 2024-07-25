@@ -56,7 +56,7 @@ class InvoicesPage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
             label: 'Facturas',
-          )
+          ),
         ],
         backgroundColor: Color.fromARGB(148, 0, 54, 90),
         selectedItemColor: Color.fromARGB(255, 7, 221, 43),
