@@ -1,35 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/Componentes/appBarComun.dart';
 import 'package:proyecto/Views/menu.dart';
-import 'package:proyecto/Views/factura.dart';
 
 class Carrito extends StatelessWidget {
   final String tableNumber;
+  final CarritoService carritoService = CarritoService();
 
   Carrito({required this.tableNumber});
 
-  final List<ItemCompra> items = [
-    ItemCompra(itemName: 'Platillo 1', price: '5.99'),
-    ItemCompra(itemName: 'Platillo 2', price: '15.99'),
-    ItemCompra(itemName: 'Platillo 3', price: '25.99'),
-    ItemCompra(itemName: 'Platillo 4', price: '35.99'),
-    ItemCompra(itemName: 'Platillo 6', price: '5.99'),
-    ItemCompra(itemName: 'Platillo 7', price: '9.99'),
-    ItemCompra(itemName: 'Platillo 8', price: '8.99'),
-  ];
-
-  
-  double calcularTotal() {
-    double total = 0;
-    for (var item in items) {
-      total += double.parse(item.price);
-    }
-    return total;
-  }
-
   @override
   Widget build(BuildContext context) {
-    double total = calcularTotal();
+    double total = carritoService.calcularTotal();
 
     return Scaffold(
       appBar: AppBarComun(title: 'Carrito', tableNumber: tableNumber),
@@ -38,13 +19,17 @@ class Carrito extends StatelessWidget {
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: ListView(
-                children: items,
+              child: ListView.builder(
+                itemCount: carritoService.items.length,
+                itemBuilder: (context, index) {
+                  final item = carritoService.items[index];
+                  return ItemCompraWidget(item: item);
+                },
               ),
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 16.0), // Agrega padding aquí
+            padding: const EdgeInsets.only(bottom: 16.0),
             child: Container(
               padding: const EdgeInsets.all(16.0),
               decoration: BoxDecoration(
@@ -70,8 +55,7 @@ class Carrito extends StatelessWidget {
                     },
                     child: Text('Pedir', style: TextStyle(color: Colors.white)),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          Colors.deepPurple, // Color de fondo del botón
+                      backgroundColor: Colors.deepPurple,
                       padding:
                           EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                       textStyle: TextStyle(fontSize: 18),
@@ -87,7 +71,6 @@ class Carrito extends StatelessWidget {
         currentIndex: 1,
         onTap: (index) {
           if (index == 0) {
-            // Navegar a la página del menú
             Navigator.pushReplacement(
               context,
               MaterialPageRoute(
@@ -108,11 +91,10 @@ class Carrito extends StatelessWidget {
   }
 }
 
-class ItemCompra extends StatelessWidget {
-  final String itemName;
-  final String price;
+class ItemCompraWidget extends StatelessWidget {
+  final ItemCompra item;
 
-  ItemCompra({required this.itemName, required this.price});
+  ItemCompraWidget({required this.item});
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +111,11 @@ class ItemCompra extends StatelessWidget {
           child: Icon(Icons.shopping_cart, color: Colors.deepPurple),
         ),
         title: Text(
-          'Producto: $itemName',
+          'Producto: ${item.itemName}',
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          'Precio: \$${price}',
+          'Precio: \$${item.price}',
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         trailing: TextButton(
