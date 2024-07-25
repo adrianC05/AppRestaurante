@@ -36,14 +36,33 @@ class InvoicesPage extends StatelessWidget {
             child: ListView(
               children: <Widget>[
                 InvoiceCard(invoiceNumber: '01', amount: '9.99', products: [
-                  //{'name': 'Producto 1', 'imagePath': 'assets/images/item1.jpg', 'price': '9.99'},
-                  {'name': 'Producto 2', 'imagePath': 'assets/images/item2.jpg', 'price': '19.99'},
-                  {'name': 'Producto 3', 'imagePath': 'assets/images/item3.jpg', 'price': '29.99'},
+                  {
+                    'name': 'Producto 2',
+                    'imagePath': 'assets/images/item2.jpg',
+                    'price': '19.99'
+                  },
+                  {
+                    'name': 'Producto 3',
+                    'imagePath': 'assets/images/item3.jpg',
+                    'price': '29.99'
+                  },
                 ]),
                 InvoiceCard(invoiceNumber: '02', amount: '19.99', products: [
-                  {'name': 'Producto 3', 'imagePath': 'assets/images/item3.jpg', 'price': '29.99'},
-                  {'name': 'Producto 2', 'imagePath': 'assets/images/item2.jpg', 'price': '19.99'},
-                  {'name': 'Producto 1', 'imagePath': 'assets/images/item1.jpg', 'price': '9.99'},
+                  {
+                    'name': 'Producto 3',
+                    'imagePath': 'assets/images/item3.jpg',
+                    'price': '29.99'
+                  },
+                  {
+                    'name': 'Producto 2',
+                    'imagePath': 'assets/images/item2.jpg',
+                    'price': '19.99'
+                  },
+                  {
+                    'name': 'Producto 1',
+                    'imagePath': 'assets/images/item1.jpg',
+                    'price': '9.99'
+                  },
                 ]),
                 // Añade más InvoiceCard según sea necesario
               ],
@@ -56,6 +75,10 @@ class InvoicesPage extends StatelessWidget {
           BottomNavigationBarItem(
             icon: Icon(Icons.receipt),
             label: 'Facturas',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.payment),
+            label: 'Pago',
           ),
         ],
         backgroundColor: Color.fromARGB(148, 0, 54, 90),
@@ -71,7 +94,10 @@ class InvoiceCard extends StatelessWidget {
   final String amount;
   final List<Map<String, String>> products;
 
-  InvoiceCard({required this.invoiceNumber, required this.amount, required this.products});
+  InvoiceCard(
+      {required this.invoiceNumber,
+      required this.amount,
+      required this.products});
 
   @override
   Widget build(BuildContext context) {
