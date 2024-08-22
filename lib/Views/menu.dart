@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Services/plato_service.dart';
 import 'package:proyecto/Views/carrito.dart';
+import 'package:proyecto/Views/factura.dart';
 import 'package:proyecto/Views/Componentes/appBarComun.dart';
 
 class Menu extends StatelessWidget {
@@ -77,7 +78,12 @@ class Menu extends StatelessWidget {
               ),
             );
           } else if (index == 2) {
-            // Navegar a la página de facturas (aquí debes implementar la lógica correspondiente)
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => Factura(tableNumber: tableNumber),
+              ),
+            );
           } else {
             // Permanece en la página actual (menú)
           }
