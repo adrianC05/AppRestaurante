@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/Componentes/appBarComun.dart';
-import 'package:proyecto/Views/carrito.dart';
-import 'package:proyecto/Views/menu.dart';
 
 class Factura extends StatelessWidget {
   final String tableNumber;
@@ -13,7 +10,6 @@ class Factura extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarComun(title: 'Factura', tableNumber: tableNumber),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -57,40 +53,6 @@ class Factura extends StatelessWidget {
             ),
           ),
           SizedBox(height: 20),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 1,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Menu(tableNumber: tableNumber),
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Carrito(tableNumber: tableNumber,),
-              ),
-            );
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.menu),
-            label: 'Menú',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Factura',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
-            label: 'Pedido',
-          ),
         ],
       ),
     );

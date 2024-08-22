@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/menu.dart';
 import 'package:proyecto/Views/login.dart';
+import 'package:proyecto/Views/home_screen.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import '../Services/qr_service.dart';
 
@@ -54,7 +55,8 @@ class _ScannerScreenState extends State<ScannerScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => Menu(tableNumber: scannedCode),
+                      builder: (context) =>
+                          HomeScreen(tableNumber: scannedCode),
                     ),
                   ).then((_) => qrService.restartCamera());
                 });
