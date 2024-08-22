@@ -10,7 +10,7 @@ class Menu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dishes = PlatoService().getPlatos();
+    final platos = PlatoService().getPlatos();
 
     return Scaffold(
       appBar: AppBarComun(title: 'Restaurante', tableNumber: tableNumber),
@@ -30,22 +30,22 @@ class Menu extends StatelessWidget {
           Expanded(
             child: GridView.count(
               crossAxisCount: 2,
-              children: List.generate(dishes.length, (index) {
-                final dish = dishes[index];
+              children: List.generate(platos.length, (index) {
+                final plato = platos[index];
                 return Card(
-                  margin: EdgeInsets.all(16.0),
+                  margin: EdgeInsets.all(6.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Image.network(
-                        dish.imageUrl,
+                        plato.imageUrl,
                         height: 100,
                         fit: BoxFit.cover,
                       ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Text(
-                          dish.name,
+                          plato.name,
                           style: TextStyle(
                               fontSize: 18, fontWeight: FontWeight.bold),
                         ),
@@ -53,7 +53,7 @@ class Menu extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 8.0),
                         child: Text(
-                          '\$${dish.price.toStringAsFixed(2)}',
+                          '\$${plato.price.toStringAsFixed(2)}',
                           style: TextStyle(fontSize: 16, color: Colors.green),
                         ),
                       ),
