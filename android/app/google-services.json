@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "2160103612",
+    "project_id": "apprestaurante-48358",
+    "storage_bucket": "apprestaurante-48358.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:2160103612:android:95326db32ad409076d40b9",
+        "android_client_info": {
+          "package_name": "com.apprestaurante.espe_el"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgZ6ZMwKYcjK1HaaXtfM_kYYkDN95Kmus"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

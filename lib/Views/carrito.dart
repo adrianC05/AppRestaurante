@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/Componentes/appBarComun.dart';
-import 'package:proyecto/Views/menu.dart';
 import 'package:proyecto/Services/carrito_service.dart';
-import 'package:proyecto/Views/factura.dart';
 import 'package:proyecto/Models/item_compra.dart';
 
 class Carrito extends StatelessWidget {
@@ -16,7 +13,6 @@ class Carrito extends StatelessWidget {
     double total = carritoService.calcularTotal();
 
     return Scaffold(
-      appBar: AppBarComun(title: 'Carrito', tableNumber: tableNumber),
       body: Column(
         children: [
           Expanded(
@@ -69,26 +65,6 @@ class Carrito extends StatelessWidget {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: CommonBottomNavigationBar(
-        currentIndex: 1,
-        onTap: (index) {
-          if (index == 0) {
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Menu(tableNumber: tableNumber),
-              ),
-            );
-          } else if (index == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => Factura(tableNumber: tableNumber),
-              ),
-            );// Navegar a la página de facturas (aquí debes implementar la lógica correspondiente)
-          }
-        },
       ),
     );
   }
