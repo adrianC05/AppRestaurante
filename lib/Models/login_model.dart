@@ -1,7 +1,7 @@
 // models/user_model.dart
-class User {
-  final String username;
-  final String password;
+class AppUser {
+  final String usuario;
+  final String contrasena;
 
-  User({required this.username, required this.password});
+  AppUser({required this.usuario, required this.contrasena});
 }

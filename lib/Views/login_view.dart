@@ -1,4 +1,4 @@
-// views/login_screen.dart
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:proyecto/services/login_service.dart';
 import 'package:proyecto/views/factura_view.dart';
@@ -17,9 +17,10 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthService _authService = AuthService();
   bool _obscurePassword = true;
 
-  void _login() {
+  Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      if (_authService.login(_usernameController.text, _passwordController.text)) {
+      User? user = await _authService.login(_usernameController.text, _passwordController.text);
+      if (user != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login exitoso')),
         );

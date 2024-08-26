@@ -2,16 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/Views/factura_view.dart';
 import 'package:proyecto/Views/login_view.dart';
 import 'package:proyecto/Views/scanner_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:proyecto/firebase_options.dart';
 
-void main() {
-  //runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,9 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
+            const Text('You have pushed the button this many times:'),
             Text(
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
