@@ -28,7 +28,9 @@ if (flutterVersionName == null) {
 
 android {
     namespace = "com.apprestaurante.espe_el"
-    compileSdk = 33  // Actualiza esto a la versión 33
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11  // Cambia a Java 11
@@ -37,8 +39,9 @@ android {
 
     defaultConfig {
         applicationId = "com.apprestaurante.espe_el"
-        minSdk = 21  // Asegúrate de que el minSdk esté en 21 o superior
+        minSdk = 23  // Asegúrate de que el minSdk esté en 21 o superior
         targetSdk = 33  // Actualiza esto a la versión 33
+        multiDexEnabled true
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
     }
@@ -53,4 +56,9 @@ android {
 
 flutter {
     source = "../.."
+}
+
+dependencies{
+    def multidex_version = "2.0.1"
+        implementation "androidx.multidex:multidex:$multidex_version"
 }
