@@ -1,22 +1,42 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:proyecto/Models/login_model.dart';
 
-class AuthService {
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+class LoginService {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  Future<User?> login(String usuario, String contrasena) async {
+  Future<LoginModel?> login(BuildContext context, String usuario, String contrasena) async {
     try {
-      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
-        email: usuario,
-        password: contrasena,
-      );
-      return userCredential.user;
+      // Buscar usuario en Firestore
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('users') // Nombre de la colección en Firestore
+          .where('usuario', isEqualTo: usuario)
+          .where('contrasena', isEqualTo: contrasena)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        // Hay al menos un documento con el usuario proporcionado
+        DocumentSnapshot doc = querySnapshot.docs.first;
+        LoginModel user = LoginModel.fromFirestore(doc.data() as Map<String, dynamic>);
+
+        // Validar contraseña (en un caso real, deberías usar hashing de contraseñas)
+        if (_verifyPassword(contrasena, user.contrasena)) {
+          return user; // Credenciales correctas
+        } else {
+          return null; // Contraseña incorrecta
+        }
+      } else {
+        return null; // Usuario no encontrado
+      }
     } catch (e) {
-      print("Error en el inicio de sesión: $e");
-      return null;
+      print('Error al iniciar sesión: $e');
+      return null; // Error durante el login
     }
   }
 
-  Future<void> logout() async {
-    await _firebaseAuth.signOut();
+  bool _verifyPassword(String inputPassword, String storedPassword) {
+    // Implementar la verificación segura de contraseñas
+    return inputPassword == storedPassword; // Esto debe ser reemplazado por comparación de hash
   }
 }

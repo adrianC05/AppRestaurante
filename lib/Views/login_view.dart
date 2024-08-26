@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:proyecto/services/login_service.dart';
+import 'package:proyecto/Models/login_model.dart';
+import 'package:proyecto/Services/login_service.dart';
 import 'package:proyecto/views/factura_view.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -14,12 +14,16 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  final AuthService _authService = AuthService();
+  final LoginService _loginService = LoginService();
   bool _obscurePassword = true;
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
-      User? user = await _authService.login(_usernameController.text, _passwordController.text);
+      LoginModel? user = await _loginService.login(
+        context,
+        _usernameController.text,
+        _passwordController.text,
+      );
       if (user != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login exitoso')),
