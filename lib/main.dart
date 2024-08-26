@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/invoices.dart';
-import 'package:proyecto/Views/login.dart';
+import 'package:proyecto/Views/factura_view.dart';
+import 'package:proyecto/Views/login_view.dart';
 import 'package:proyecto/Views/scanner_screen.dart';
 
 void main() {
@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: ScannerScreen(),
+      home: LoginScreen(),
     );
   }
 }

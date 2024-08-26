@@ -1,5 +1,7 @@
+// views/login_screen.dart
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/invoices.dart';
+import 'package:proyecto/services/login_service.dart';
+import 'package:proyecto/views/factura_view.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,19 +14,15 @@ class _LoginScreenState extends State<LoginScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  bool _obscurePassword = true; // Controla la visibilidad de la contraseña
-
-  final String _staticUsername = "usuario";
-  final String _staticPassword = "contraseña";
+  final AuthService _authService = AuthService();
+  bool _obscurePassword = true;
 
   void _login() {
     if (_formKey.currentState!.validate()) {
-      if (_usernameController.text == _staticUsername &&
-          _passwordController.text == _staticPassword) {
+      if (_authService.login(_usernameController.text, _passwordController.text)) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login exitoso')),
         );
-        // Navegar a la pantalla de facturas después de un login exitoso
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(builder: (context) => InvoicesPage()),
@@ -42,14 +40,12 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          // Imagen de fondo
           Positioned.fill(
             child: Image.asset(
-              'assets/images/restaurant.jpg', // Ruta de la imagen de fondo
+              'assets/images/restaurant.jpg',
               fit: BoxFit.cover,
             ),
           ),
-          // Contenido de la pantalla de login
           Center(
             child: SingleChildScrollView(
               child: Padding(
@@ -57,27 +53,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // Icono de login
                     const Icon(
                       Icons.account_box,
                       size: 120,
                       color: Color.fromARGB(255, 255, 255, 255),
                     ),
                     SizedBox(height: 20),
-
-                    // Formulario de login
                     Form(
                       key: _formKey,
                       child: Column(
                         children: <Widget>[
-                          // Campo de Usuario
                           TextFormField(
                             controller: _usernameController,
                             decoration: InputDecoration(
                               labelText: 'Usuario',
                               labelStyle: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
-                                //fontWeight: FontWeight.bold,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -99,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           SizedBox(height: 16),
-                          // Campo de Contraseña
                           TextFormField(
                             controller: _passwordController,
                             obscureText: _obscurePassword,
@@ -107,7 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               labelText: 'Contraseña',
                               labelStyle: TextStyle(
                                 color: Color.fromARGB(255, 255, 255, 255),
-                                //fontWeight: FontWeight.bold,
                               ),
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10.0),
@@ -119,9 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword
-                                      ? Icons.visibility
-                                      : Icons.visibility_off,
+                                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
                                   color: Color.fromARGB(255, 255, 255, 255),
                                 ),
                                 onPressed: () {
@@ -142,7 +129,6 @@ class _LoginScreenState extends State<LoginScreen> {
                             },
                           ),
                           SizedBox(height: 20),
-                          // Botón de Iniciar sesión
                           ElevatedButton(
                             onPressed: _login,
                             child: Text('Iniciar sesión'),
@@ -154,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 const Color.fromARGB(255, 12, 12, 12),
                               ),
                               minimumSize: MaterialStateProperty.all<Size>(
-                                Size(double.infinity, 48), // Ancho completo y altura ajustada
+                                Size(double.infinity, 48),
                               ),
                               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -163,8 +149,6 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-                          SizedBox(height: 16),
-                          // Botón de Registro
                         ],
                       ),
                     ),

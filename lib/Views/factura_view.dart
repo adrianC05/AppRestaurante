@@ -1,8 +1,25 @@
+// views/invoices_page.dart
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/invoices_details.dart'; // Asegúrate de tener la importación correcta
-import 'package:proyecto/Views/login.dart';
+import 'package:proyecto/services/factura_service.dart';
+import 'package:proyecto/models/factura_model.dart';
+import 'package:proyecto/views/invoices_details.dart'; // Asegúrate de tener la importación correcta
+import 'package:proyecto/views/login_view.dart';
 
-class InvoicesPage extends StatelessWidget {
+class InvoicesPage extends StatefulWidget {
+  @override
+  _InvoicesPageState createState() => _InvoicesPageState();
+}
+
+class _InvoicesPageState extends State<InvoicesPage> {
+  late Future<List<Invoice>> futureInvoices;
+  final InvoiceService invoiceService = InvoiceService();
+
+  @override
+  void initState() {
+    super.initState();
+    futureInvoices = invoiceService.fetchInvoices();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,49 +40,41 @@ class InvoicesPage extends StatelessWidget {
       ),
       body: Stack(
         children: <Widget>[
-          // Imagen de fondo
           Positioned.fill(
             child: Image.asset(
-              'assets/images/restaurant.jpg', // Ruta de la imagen de fondo
+              'assets/images/restaurant.jpg',
               fit: BoxFit.cover,
             ),
           ),
-          // Contenido de la vista
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: ListView(
-              children: <Widget>[
-                InvoiceCard(invoiceNumber: '01', amount: '9.99', products: [
-                  {
-                    'name': 'Producto 2',
-                    'imagePath': 'assets/images/item2.jpg',
-                    'price': '19.99'
-                  },
-                  {
-                    'name': 'Producto 3',
-                    'imagePath': 'assets/images/item3.jpg',
-                    'price': '29.99'
-                  },
-                ]),
-                InvoiceCard(invoiceNumber: '02', amount: '19.99', products: [
-                  {
-                    'name': 'Producto 3',
-                    'imagePath': 'assets/images/item3.jpg',
-                    'price': '29.99'
-                  },
-                  {
-                    'name': 'Producto 2',
-                    'imagePath': 'assets/images/item2.jpg',
-                    'price': '19.99'
-                  },
-                  {
-                    'name': 'Producto 1',
-                    'imagePath': 'assets/images/item1.jpg',
-                    'price': '9.99'
-                  },
-                ]),
-                // Añade más InvoiceCard según sea necesario
-              ],
+            child: FutureBuilder<List<Invoice>>(
+              future: futureInvoices,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: CircularProgressIndicator());
+                } else if (snapshot.hasError) {
+                  return Center(child: Text('Error al cargar las facturas.'));
+                } else if (snapshot.hasData) {
+                  return ListView(
+                    children: snapshot.data!.map((invoice) {
+                      return InvoiceCard(
+                        invoiceNumber: invoice.invoiceNumber,
+                        amount: invoice.amount,
+                        products: invoice.products.map((product) {
+                          return {
+                            'name': product.name,
+                            'imagePath': product.imagePath,
+                            'price': product.price
+                          };
+                        }).toList(),
+                      );
+                    }).toList(),
+                  );
+                } else {
+                  return Center(child: Text('No se encontraron facturas.'));
+                }
+              },
             ),
           ),
         ],
@@ -94,10 +103,11 @@ class InvoiceCard extends StatelessWidget {
   final String amount;
   final List<Map<String, String>> products;
 
-  InvoiceCard(
-      {required this.invoiceNumber,
-      required this.amount,
-      required this.products});
+  InvoiceCard({
+    required this.invoiceNumber,
+    required this.amount,
+    required this.products,
+  });
 
   @override
   Widget build(BuildContext context) {
