@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/factura_view.dart';
-import 'package:proyecto/Views/login_view.dart';
 import 'package:proyecto/Views/scanner_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:proyecto/firebase_options.dart';
@@ -25,7 +23,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: LoginScreen(),
+      home: ScannerScreen(),
     );
   }
 }
