@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:proyecto/Models/login_model.dart';
 import 'package:proyecto/Services/login_service.dart';
-import 'package:proyecto/views/factura_view.dart';
+import 'package:proyecto/Views/Empleados/home_screen_empleados.dart'; 
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -30,7 +30,9 @@ class _LoginScreenState extends State<LoginScreen> {
         );
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => InvoicesPage()),
+          MaterialPageRoute(
+              builder: (context) =>
+                  HomeScreenEmpleados()), // Navega a HomeScreenEmpleados
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -84,7 +86,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 color: Colors.white,
                               ),
                               filled: true,
-                              fillColor: Color.fromARGB(255, 107, 126, 207).withOpacity(0.4),
+                              fillColor: Color.fromARGB(255, 107, 126, 207)
+                                  .withOpacity(0.4),
                             ),
                             style: TextStyle(color: Colors.white),
                             validator: (value) {
@@ -113,7 +116,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               suffixIcon: IconButton(
                                 icon: Icon(
-                                  _obscurePassword ? Icons.visibility : Icons.visibility_off,
+                                  _obscurePassword
+                                      ? Icons.visibility
+                                      : Icons.visibility_off,
                                   color: Color.fromARGB(255, 255, 255, 255),
                                 ),
                                 onPressed: () {
@@ -123,7 +128,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                               ),
                               filled: true,
-                              fillColor: Color.fromARGB(255, 107, 126, 207).withOpacity(0.3),
+                              fillColor: Color.fromARGB(255, 107, 126, 207)
+                                  .withOpacity(0.3),
                             ),
                             style: TextStyle(color: Colors.white),
                             validator: (value) {
@@ -147,7 +153,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               minimumSize: MaterialStateProperty.all<Size>(
                                 Size(double.infinity, 48),
                               ),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10.0),
                                 ),

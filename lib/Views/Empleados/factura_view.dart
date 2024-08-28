@@ -1,9 +1,10 @@
-// views/invoices_page.dart
+// lib/Views/Empleados/invoices_page.dart
 import 'package:flutter/material.dart';
+import 'package:proyecto/Views/Empleados/AppBarEmpleados.dart';
+import 'package:proyecto/Views/Empleados/commonBottomNavigationBarEmpleados.dart';
+import 'package:proyecto/Views/Empleados/invoices_details.dart';
 import 'package:proyecto/services/factura_service.dart';
 import 'package:proyecto/models/factura_model.dart';
-import 'package:proyecto/views/invoices_details.dart'; // Asegúrate de tener la importación correcta
-import 'package:proyecto/views/login_view.dart';
 
 class InvoicesPage extends StatefulWidget {
   @override
@@ -23,21 +24,6 @@ class _InvoicesPageState extends State<InvoicesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Nombre del Restaurante', style: TextStyle(fontSize: 20)),
-        backgroundColor: Color.fromARGB(148, 0, 54, 90),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout, size: 30),
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => LoginScreen()),
-              );
-            },
-          ),
-        ],
-      ),
       body: Stack(
         children: <Widget>[
           Positioned.fill(
@@ -79,25 +65,11 @@ class _InvoicesPageState extends State<InvoicesPage> {
           ),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.receipt),
-            label: 'Facturas',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.payment),
-            label: 'Pago',
-          ),
-        ],
-        backgroundColor: Color.fromARGB(148, 0, 54, 90),
-        selectedItemColor: Color.fromARGB(255, 7, 221, 43),
-        unselectedItemColor: const Color.fromARGB(179, 255, 255, 255),
-      ),
     );
   }
 }
 
+// Definición de InvoiceCard directamente en invoices_page.dart
 class InvoiceCard extends StatelessWidget {
   final String invoiceNumber;
   final String amount;
@@ -128,7 +100,7 @@ class InvoiceCard extends StatelessWidget {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
         subtitle: Text(
-          'Detalles: \$${amount}',
+          'Detalles: \$$amount',
           style: TextStyle(fontSize: 14, color: Colors.grey.shade600),
         ),
         trailing: TextButton(
