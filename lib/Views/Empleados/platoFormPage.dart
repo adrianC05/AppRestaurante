@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:proyecto/Models/plato.dart';
 import 'package:proyecto/Services/plato_service.dart';
+import 'package:proyecto/Views/Empleados/crear_plato.dart';
 
 class PlatoFormPage extends StatefulWidget {
   final Plato? plato;
@@ -131,12 +132,32 @@ class _PlatoFormPageState extends State<PlatoFormPage> {
 
   Future<void> _savePlato() async {
     if (_formKey.currentState!.validate()) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Dialog(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircularProgressIndicator(),
+                  SizedBox(width: 20),
+                  Text("Guardando plato..."),
+                ],
+              ),
+            ),
+          );
+        },
+      );
+
       final String name = _nameController.text;
       final double price = double.parse(_priceController.text);
       final String description = _descriptionController.text;
 
       if (_imageFile != null) {
-        // Llamar al método uploadImage (público)
+        // Subir la imagen
         _imageUrl = await _platoService.uploadImage(_imageFile!.path);
         print("URL de la imagen: $_imageUrl");
       }
@@ -161,9 +182,15 @@ class _PlatoFormPageState extends State<PlatoFormPage> {
         );
       }
 
+      Navigator.of(context).pop(); // Cerrar el diálogo
+
       if (mounted) {
-        // Verificar si el widget sigue montado antes de navegar
-        Navigator.pop(context, true); // Enviar 'true' indicando éxito
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ManagePlatosPage(),
+          ),
+        );
       }
     }
   }
