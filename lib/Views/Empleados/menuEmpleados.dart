@@ -18,7 +18,7 @@ class MenuEmpleados extends StatelessWidget {
           final platos = snapshot.data!;
           return Column(
             children: [
-              Padding(
+              /* Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -28,7 +28,7 @@ class MenuEmpleados extends StatelessWidget {
                     Text('Menu', style: TextStyle(fontSize: 24)),
                   ],
                 ),
-              ),
+              ), */
               Expanded(
                 child: GridView.count(
                   crossAxisCount: 2,
