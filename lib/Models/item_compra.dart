@@ -1,6 +1,6 @@
 class ItemCompra {
   final String itemName;
-  final String price;
+  final double price;
 
   ItemCompra({required this.itemName, required this.price});
 }

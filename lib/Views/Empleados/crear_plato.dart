@@ -45,7 +45,7 @@ class ManagePlatosPage extends StatelessWidget {
                       onPressed: () {
                         _platoService.deletePlato(plato);
                       },
-                    ),
+                    )
                   ],
                 ),
               );

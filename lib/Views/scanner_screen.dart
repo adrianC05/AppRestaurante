@@ -1,10 +1,11 @@
-// lib/Views/scanner_screen.dart
 import 'package:flutter/material.dart';
 import 'package:proyecto/Views/home_screen.dart';
 import 'package:proyecto/Views/menu.dart';
 import 'package:proyecto/Views/login_view.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import '../Services/qr_service.dart';
+import 'package:proyecto/Services/qr_service.dart';
+import 'package:proyecto/Services/carrito_service.dart';
+import 'package:provider/provider.dart';
 
 class ScannerScreen extends StatefulWidget {
   @override
@@ -52,6 +53,10 @@ class _ScannerScreenState extends State<ScannerScreen> {
               key: qrKey,
               onQRViewCreated: (controller) {
                 qrService.onQRViewCreated(controller, (scannedCode) {
+                  // Vaciar el carrito antes de navegar a HomeScreen
+                  Provider.of<CarritoService>(context, listen: false)
+                      .vaciarCarrito();
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(

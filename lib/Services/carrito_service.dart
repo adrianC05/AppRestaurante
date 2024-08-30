@@ -1,21 +1,31 @@
+import 'package:flutter/material.dart';
 import 'package:proyecto/Models/item_compra.dart';
 
-class CarritoService {
-  final List<ItemCompra> items = [
-    ItemCompra(itemName: 'Platillo 1', price: '5.99'),
-    ItemCompra(itemName: 'Platillo 2', price: '15.99'),
-    ItemCompra(itemName: 'Platillo 3', price: '25.99'),
-    ItemCompra(itemName: 'Platillo 4', price: '35.99'),
-    ItemCompra(itemName: 'Platillo 6', price: '5.99'),
-    ItemCompra(itemName: 'Platillo 7', price: '9.99'),
-    ItemCompra(itemName: 'Platillo 8', price: '8.99'),
-  ];
+class CarritoService extends ChangeNotifier {
+  static final CarritoService _instance = CarritoService._internal();
+  factory CarritoService() => _instance;
+  CarritoService._internal();
+
+  final List<ItemCompra> _items = [];
+
+  List<ItemCompra> get items => List.unmodifiable(_items);
+
+  void agregarItem(ItemCompra item) {
+    _items.add(item);
+    notifyListeners(); // Notifica a los listeners cuando cambia el carrito
+  }
+
+  void eliminarItem(ItemCompra item) {
+    _items.remove(item);
+    notifyListeners(); // Notifica a los listeners cuando cambia el carrito
+  }
 
   double calcularTotal() {
-    double total = 0;
-    for (var item in items) {
-      total += double.parse(item.price);
-    }
-    return total;
+    return _items.fold(0.0, (total, item) => total + item.price);
+  }
+
+  void vaciarCarrito() {
+    _items.clear();
+    notifyListeners(); // Notifica a los listeners cuando cambia el carrito
   }
 }

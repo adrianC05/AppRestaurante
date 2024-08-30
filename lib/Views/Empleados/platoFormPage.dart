@@ -132,6 +132,7 @@ class _PlatoFormPageState extends State<PlatoFormPage> {
 
   Future<void> _savePlato() async {
     if (_formKey.currentState!.validate()) {
+      // Mostrar el diálogo de guardado
       showDialog(
         context: context,
         barrierDismissible: false,
@@ -156,10 +157,13 @@ class _PlatoFormPageState extends State<PlatoFormPage> {
       final double price = double.parse(_priceController.text);
       final String description = _descriptionController.text;
 
+      // Solo subir la imagen si se ha seleccionado una nueva
       if (_imageFile != null) {
-        // Subir la imagen
         _imageUrl = await _platoService.uploadImage(_imageFile!.path);
         print("URL de la imagen: $_imageUrl");
+      } else if (widget.plato != null) {
+        // Si no se seleccionó una nueva imagen, mantener la URL de la imagen existente
+        _imageUrl = widget.plato!.imageUrl;
       }
 
       if (widget.plato == null) {
@@ -172,10 +176,10 @@ class _PlatoFormPageState extends State<PlatoFormPage> {
             price: price,
             description: description,
           ),
-          imagePath: _imageFile!.path,
+          imagePath: _imageFile != null ? _imageFile!.path : '',
         );
       } else {
-        // Actualizar un plato existente
+        // Actualizar un plato existente solo si hay cambios en la imagen
         await _platoService.updatePlato(
           widget.plato!,
           newImagePath: _imageFile != null ? _imageFile!.path : null,
