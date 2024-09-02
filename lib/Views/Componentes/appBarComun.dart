@@ -28,7 +28,7 @@ class AppBarComun extends StatelessWidget implements PreferredSizeWidget {
           padding: const EdgeInsets.all(16.0),
           child: Center(
             child: Text('Nro. Mesa $tableNumber',
-                style: TextStyle(fontSize: 18, color: Colors.white)),
+                style: TextStyle(fontSize: 18, color: const Color.fromARGB(255, 226, 186, 186))),
           ),
         ),
       ],

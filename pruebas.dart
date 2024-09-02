@@ -43,7 +43,7 @@ class _HomeScreenEmpleadosState extends State<HomeScreenEmpleados> {
                 context,
                 MaterialPageRoute(
                   builder: (context) =>
-                      ManagePlatosPage(),
+                      ManagePlatosPage(), // Navega a la pantalla de gestión de platos
                 ),
               );
             },
