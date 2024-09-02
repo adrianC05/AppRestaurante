@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:proyecto/Views/scanner_screen.dart'; 
+import 'package:proyecto/Views/scanner_screen.dart';
 
 class AppBarComun extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -16,7 +16,9 @@ class AppBarComun extends StatelessWidget implements PreferredSizeWidget {
         onPressed: () {
           Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(builder: (context) => ScannerScreen()), // Reemplaza 'ScannerScreen' con tu widget de escáner inicial
+            MaterialPageRoute(
+                builder: (context) =>
+                    ScannerScreen()), // Reemplaza 'ScannerScreen' con tu widget de escáner inicial
             (Route<dynamic> route) => false,
           );
         },
@@ -25,7 +27,8 @@ class AppBarComun extends StatelessWidget implements PreferredSizeWidget {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Center(
-            child: Text('Nro. Mesa $tableNumber', style: TextStyle(fontSize: 18, color: Colors.white)),
+            child: Text('Nro. Mesa $tableNumber',
+                style: TextStyle(fontSize: 18, color: Colors.white)),
           ),
         ),
       ],

@@ -1,22 +1,17 @@
-// lib/Views/Empleados/invoice_details_page.dart
 import 'package:flutter/material.dart';
+import 'package:proyecto/Models/factura_model.dart';
 
 class InvoiceDetailsPage extends StatelessWidget {
-  final String invoiceNumber;
-  final String amount;
-  final List<Map<String, String>> products;
+  final FacturaModel factura;
 
-  InvoiceDetailsPage({
-    required this.invoiceNumber,
-    required this.amount,
-    required this.products,
-  });
+  InvoiceDetailsPage({required this.factura});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Detalles de Factura'),
+        title: Text('Detalles de la Factura'),
+        backgroundColor: Colors.deepPurple, // Mantén el color de fondo morado
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -24,26 +19,40 @@ class InvoiceDetailsPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Factura: $invoiceNumber',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              'Número de Factura: ${factura.id}',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
             Text(
-              'Total: \$$amount',
-              style: TextStyle(fontSize: 18),
+              'Mesa: ${factura.tableNumber}',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 10),
             Text(
               'Productos:',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10),
+            Expanded(
+              child: ListView.builder(
+                itemCount: factura.productos.length,
+                itemBuilder: (context, index) {
+                  final producto = factura.productos[index];
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 4.0),
+                    child: Text(
+                      '${producto['itemName']}: \$${producto['price']}',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  );
+                },
+              ),
+            ),
+            Divider(),
+            Text(
+              'Total: \$${factura.total.toStringAsFixed(2)}',
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
-            ...products.map((product) {
-              return ListTile(
-                leading: Image.asset(product['imagePath']!),
-                title: Text(product['name']!),
-                subtitle: Text('Precio: \$${product['price']}'),
-              );
-            }).toList(),
           ],
         ),
       ),

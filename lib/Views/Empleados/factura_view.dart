@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:proyecto/Services/factura_service.dart';
 import 'package:proyecto/Models/factura_model.dart';
 
+
+import 'package:proyecto/Views/Empleados/invoices_details.dart';
+
 class InvoicesPage extends StatefulWidget {
   @override
   _InvoicesPageState createState() => _InvoicesPageState();
@@ -43,6 +46,7 @@ class _InvoicesPageState extends State<InvoicesPage> {
                     invoiceNumber: factura.id,
                     amount: factura.total.toStringAsFixed(2),
                     products: convertirProductos(factura.productos),
+                    tableNumber: factura.tableNumber,
                   );
                 }).toList(),
               );
@@ -60,11 +64,13 @@ class InvoiceCard extends StatelessWidget {
   final String invoiceNumber;
   final String amount;
   final List<Map<String, String>> products;
+  final String tableNumber;
 
   InvoiceCard({
     required this.invoiceNumber,
     required this.amount,
     required this.products,
+    required this.tableNumber,
   });
 
   @override
@@ -92,7 +98,24 @@ class InvoiceCard extends StatelessWidget {
         trailing: TextButton(
           child: Text('Detalles', style: TextStyle(color: Colors.deepPurple)),
           onPressed: () {
-            // Implementa la navegación a los detalles de la factura
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => InvoiceDetailsPage(
+                  factura: FacturaModel(
+                    id: invoiceNumber,
+                    tableNumber: tableNumber, // Proporcionar tableNumber aquí
+                    total: double.parse(amount),
+                    productos: products.map((product) {
+                      return {
+                        'itemName': product['itemName']!,
+                        'price': double.parse(product['price']!),
+                      };
+                    }).toList(),
+                  ),
+                ),
+              ),
+            );
           },
         ),
       ),

@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _pages = [
       Menu(tableNumber: widget.tableNumber),
-      Carrito(tableNumber: widget.tableNumber),
+      Carrito(tableNumber: widget.tableNumber, onPedir: () => _onItemTapped(2)),
       Factura(tableNumber: widget.tableNumber),
     ];
   }

@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:proyecto/Services/carrito_service.dart';
 import 'package:proyecto/Models/item_compra.dart';
-import 'package:proyecto/widgets/item_compra_widget.dart';
-import 'package:provider/provider.dart';
+import 'package:proyecto/Services/factura_service.dart';
+import 'package:proyecto/Models/factura_model.dart';
+import 'package:proyecto/Views/home_screen.dart';
+import 'package:proyecto/Widgets/item_compra_widget.dart';
 
 class Carrito extends StatelessWidget {
   final String tableNumber;
+  final Function onPedir;
 
-  Carrito({required this.tableNumber});
+  Carrito({required this.tableNumber, required this.onPedir});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Carrito'),
-      ),
       body: Consumer<CarritoService>(
         builder: (context, carritoService, child) {
           double total = carritoService.calcularTotal();
@@ -62,7 +63,8 @@ class Carrito extends StatelessWidget {
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
-                          // Acción al presionar el botón PEDIR
+                          carritoService.mostrarFacturaItems();
+                          onPedir(); // Cambiar a la vista de factura
                         },
                         child: Text('Pedir',
                             style: TextStyle(color: Colors.white)),

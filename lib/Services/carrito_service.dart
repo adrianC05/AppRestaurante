@@ -7,8 +7,11 @@ class CarritoService extends ChangeNotifier {
   CarritoService._internal();
 
   final List<ItemCompra> _items = [];
+  bool _mostrarFactura = false;
 
   List<ItemCompra> get items => List.unmodifiable(_items);
+
+  bool get mostrarFactura => _mostrarFactura;
 
   void agregarItem(ItemCompra item) {
     _items.add(item);
@@ -26,6 +29,12 @@ class CarritoService extends ChangeNotifier {
 
   void vaciarCarrito() {
     _items.clear();
+    _mostrarFactura = false;
+    notifyListeners(); // Notifica a los listeners cuando cambia el carrito
+  }
+
+  void mostrarFacturaItems() {
+    _mostrarFactura = true;
     notifyListeners(); // Notifica a los listeners cuando cambia el carrito
   }
 }

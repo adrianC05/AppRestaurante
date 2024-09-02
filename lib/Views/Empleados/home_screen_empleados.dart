@@ -33,22 +33,8 @@ class _HomeScreenEmpleadosState extends State<HomeScreenEmpleados> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_selectedIndex == 0 ? 'Facturas' : 'Menu'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>
-                      ManagePlatosPage(), // Navega a la pantalla de gestión de platos
-                ),
-              );
-            },
-          ),
-        ],
+      appBar: AppBarEmpleados(
+        title: _selectedIndex == 0 ? 'Facturas' : 'Menu',
       ),
       body: IndexedStack(
         index: _selectedIndex,
